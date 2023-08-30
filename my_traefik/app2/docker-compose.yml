@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  app2:
+    build: .
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app2.entrypoints=front"
+      - "traefik.http.routers.app2.rule=PathPrefix(`/app2{regex:$$|/.*}`)"
+      - "traefik.http.routers.app2.middlewares=app2-stripprefix"
+      - "traefik.http.middlewares.app2-stripprefix.stripprefix.prefixes=/app2"
+
+networks:
+  traefik:
+    external: true
+
+#- "traefik.http.services.portainer.loadbalancer.server.port=9000"

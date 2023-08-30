@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  traefik:
+    image: traefik:2.6
+    ports:
+      - 80:80
+    networks:
+      - traefik
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment: 
+      - TRAEFIK_PROVIDERS_DOCKER=true
+      - TRAEFIK_PROVIDERS_DOCKER_NETWORK=traefik
+      - TRAEFIK_ENTRYPOINTS_FRONT=true
+      - TRAEFIK_ENTRYPOINTS_FRONT_ADDRESS=:80
+
+networks:
+  traefik:
+    external: true

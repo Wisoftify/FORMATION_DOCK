@@ -1,0 +1,12 @@
+FROM debian:latest
+
+RUN echo "bonjour"
+
+RUN apt update && apt install nginx -y
+
+ADD ./www /var/www/html
+#RUN git clone <...>
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
